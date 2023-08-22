@@ -33,7 +33,7 @@ const insertContact = asyncHandler(async (req, res) => {
         phone
     } = req.body;
 
-    if (!name && !email && !phone) {
+    if (!name || !email || !phone) {
         res.status(404);
         throw new Error("All fields are mandatory !")
     }
@@ -63,7 +63,7 @@ const updateContact = asyncHandler(async (req, res) => {
         throw new Error("Contact not found");
     }
 
-    if (!name && !email && !phone) {
+    if (!name || !email || !phone) {
         res.status(404);
         throw new Error("All fields are mandatory !")
     }

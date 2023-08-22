@@ -7,6 +7,7 @@ const connectDb = async () => {
         console.log(connect.connection.host, connect.connection.name)
     }
     catch (err) {
+        console.log("Eissa err");
         console.log(err);
     }
 }
