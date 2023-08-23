@@ -27,7 +27,7 @@ Ensuring access control and protecting routes specific to users.
 Establishing relationships between user and contact schemas.
 Developing routes and controllers to support user-specific contact operations
 
-#How to Use This Repository
+# How to Use This Repository
 1. Clone this repository to your local machine.
 2. Install the dependencies using your preferred package manager (npm or yarn), perform npm install.
 3. Set up a MongoDB instance to work alongside the application.
