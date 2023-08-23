@@ -13,14 +13,14 @@ const User = mongoose.Schema(
             type: String,
             require: [
                 true,
-                "User name is required"
+                "User email is required"
             ]
         },
         password: {
             type: String,
             require: [
                 true,
-                "User name is required"
+                "User password is required"
             ]
         }
     },

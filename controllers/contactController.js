@@ -3,16 +3,16 @@ const Contact = require("./../models/contactModel");
 
 // @desc Get all contacts
 // @route GET /api/contacts
-// @access public
+// @access private
 const getAllContacts = asyncHandler(async (req, res) => {
-    const contacts = await Contact.find();
+    const contacts = await Contact.find({ userId: req.user._id });
     res.status(200).json(contacts);
 });
 
 
 // @desc Get one contact
 // @route GET /api/contacts
-// @access public
+// @access private
 const getOneContact = asyncHandler(async (req, res) => {
     const contact = await Contact.findById(req.params.id);
     if (!contact) {
@@ -24,9 +24,9 @@ const getOneContact = asyncHandler(async (req, res) => {
 
 // @desc Insert one contact
 // @route POST /api/contacts
-// @access public
+// @access private
 const insertContact = asyncHandler(async (req, res) => {
-    
+
     const {
         name,
         email,
@@ -39,6 +39,7 @@ const insertContact = asyncHandler(async (req, res) => {
     }
 
     const contact = await Contact.create({
+        userId: req.user._id,
         name,
         email,
         phone
@@ -49,7 +50,7 @@ const insertContact = asyncHandler(async (req, res) => {
 
 // @desc Update one contact by id
 // @route PUT /api/contacts
-// @access public
+// @access private
 const updateContact = asyncHandler(async (req, res) => {
     const {
         name,
@@ -61,6 +62,11 @@ const updateContact = asyncHandler(async (req, res) => {
     if (!contact) {
         res.status(404);
         throw new Error("Contact not found");
+    }
+    
+    if (contact.userId.toString() != req.user._id) {
+        res.status(403);
+        throw new Error("Users are not allowed to alter other users contacts !");
     }
 
     if (!name || !email || !phone) {
@@ -75,7 +81,7 @@ const updateContact = asyncHandler(async (req, res) => {
             email,
             phone
         },
-        {new: true}
+        { new: true }
     );
 
     res.status(200).json(updatedContact);
@@ -83,13 +89,18 @@ const updateContact = asyncHandler(async (req, res) => {
 
 // @desc Delete one contact by id
 // @route DELETE /api/contacts
-// @access public
+// @access private
 const deleteContact = asyncHandler(async (req, res) => {
 
     const contact = await Contact.findById(req.params.id);
     if (!contact) {
         res.status(404);
         throw new Error("Contact not found");
+    }
+
+    if (contact.userId.toString() != req.user._id) {
+        res.status(403);
+        throw new Error("Users are not allowed to alter other users contacts !");
     }
 
     await Contact.findByIdAndRemove(req.params.id)

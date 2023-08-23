@@ -15,5 +15,5 @@ app.use("/api/users", require("./routes/usersRoutes"));
 app.use(errorHandler);
 
 app.listen(port, () => {
-    console.log("bml", port);
+    console.log("Listening on port:", port);
 });
