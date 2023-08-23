@@ -11,7 +11,7 @@ const getAllContacts = asyncHandler(async (req, res) => {
 
 
 // @desc Get one contact
-// @route GET /api/contacts
+// @route GET /api/contacts/:id
 // @access private
 const getOneContact = asyncHandler(async (req, res) => {
     const contact = await Contact.findById(req.params.id);
@@ -63,7 +63,7 @@ const updateContact = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error("Contact not found");
     }
-    
+
     if (contact.userId.toString() != req.user._id) {
         res.status(403);
         throw new Error("Users are not allowed to alter other users contacts !");
@@ -88,7 +88,7 @@ const updateContact = asyncHandler(async (req, res) => {
 });
 
 // @desc Delete one contact by id
-// @route DELETE /api/contacts
+// @route DELETE /api/contacts/:id
 // @access private
 const deleteContact = asyncHandler(async (req, res) => {
 
@@ -103,7 +103,7 @@ const deleteContact = asyncHandler(async (req, res) => {
         throw new Error("Users are not allowed to alter other users contacts !");
     }
 
-    await Contact.findByIdAndRemove(req.params.id)
+    await Contact.findByIdAndRemove(req.params.id);
     res.status(200).json(contact);
 });
 

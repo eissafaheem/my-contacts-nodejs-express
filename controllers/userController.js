@@ -1,10 +1,10 @@
 const User = require('./../models/userModal')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const asyncHandler = require('express-async-handler')
+
 // @desc register user
-// @route POST api/users/create 
+// @route POST api/users/register 
 // @access public
 const createUser = asyncHandler(async (req, res) => {
 
@@ -70,7 +70,7 @@ const loginUser = asyncHandler(async (req, res) => {
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: "15m" }
         );
-        res.status(200).json({ accessToken })
+        res.status(200).json({ accessToken });
     }
     else {
         res.status(401);
@@ -80,7 +80,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 // @desc current user
-// @route GET api/users/create 
+// @route GET api/users/current 
 // @access private
 const currentUser = asyncHandler(async(req, res) => {
     res.json(req.user);
