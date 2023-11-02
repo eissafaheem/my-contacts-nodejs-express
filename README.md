@@ -37,3 +37,4 @@ Developing routes and controllers to support user-specific contact operations
    4.3 ACCESS_TOKEN_SECRET (for jwt access token)
 6. Start the Express server to interact with the APIs.
 7. Utilize Thunder Client, Postman or similar tools to test the API endpoints and observe the outcomes of various operations.
+8
